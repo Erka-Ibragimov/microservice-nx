@@ -5,6 +5,6 @@ export const getJWTConfig = (): JwtModuleAsyncOptions => ({
   imports: [ConfigModule],
   inject: [ConfigService],
   useFactory: (configService: ConfigService) => ({
-    secret: configService.get('JWT_SERCRET'),
+    secret: configService.get('JWT_SECRET'),
   }),
 });
