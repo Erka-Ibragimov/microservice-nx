@@ -2,7 +2,12 @@ import { PurchaseState } from '@purple-school/interfaces';
 import { RMQService } from 'nestjs-rmq';
 import { UserEntity } from '../entity/user.entity';
 import { BuyCourseSageState } from './buy-course.state';
-import { BuyCourseSagaStateStarted } from './buy-course.steps';
+import {
+  BuyCourseSagaStateCanceled,
+  BuyCourseSagaStateFinished,
+  BuyCourseSagaStateProcess,
+  BuyCourseSagaStateStarted,
+} from './buy-course.steps';
 
 export class BuyCourseSaga {
   private state: BuyCourseSageState;
@@ -23,16 +28,19 @@ export class BuyCourseSaga {
         this.state = new BuyCourseSagaStateStarted();
         break;
       case PurchaseState.WaitingForPayment:
+        this.state = new BuyCourseSagaStateProcess();
         break;
       case PurchaseState.Purchased:
+        this.state = new BuyCourseSagaStateFinished();
         break;
-      case PurchaseState.WaitingForPayment:
+      case PurchaseState.Canceled:
+        this.state = new BuyCourseSagaStateCanceled();
         break;
       default:
         break;
     }
 
     this.state.setContext(this);
-    this.user.updateCourseStatus(courseId, state);
+    this.user.setCourseStatus(courseId, state);
   }
 }
