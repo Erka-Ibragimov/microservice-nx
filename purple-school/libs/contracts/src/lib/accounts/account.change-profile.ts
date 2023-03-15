@@ -13,6 +13,5 @@ export namespace AccountChangeProfile {
   }
 
   export class Response {
-    updated: true;
   }
 }

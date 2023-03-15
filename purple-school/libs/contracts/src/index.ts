@@ -5,6 +5,7 @@ export * from './lib/accounts/account.user-courses';
 export * from './lib/accounts/account.change-profile';
 export * from './lib/accounts/account.buy-course';
 export * from './lib/accounts/account.check-payment';
+export * from './lib/accounts/account.changed-course';
 
 export * from './lib/courses/course.get-course';
 
